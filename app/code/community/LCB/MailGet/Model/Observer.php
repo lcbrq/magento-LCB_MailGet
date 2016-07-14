@@ -12,13 +12,13 @@ class LCB_MailGet_Model_Observer {
     public function newsletterSubscribe(Varien_Event_Observer $observer)
     {
         $subscriber = $observer->getEvent()->getSubscriber();
-        Mage::getModel('mailget/api')->addEmail($subscriber->getEmail());
+        Mage::getModel('mailget/api')->addEmail('Newsletter Subscriber',$subscriber->getEmail());
     }
 
     public function orderPlace(Varien_Event_Observer $observer)
     {
         $order = $observer->getEvent()->getOrder();
-        Mage::getModel('mailget/api')->addEmail($order->getCustomerEmail());
+        Mage::getModel('mailget/api')->addEmail($order->getCustomerName(),$order->getCustomerEmail());
     }
 
 }

@@ -1,2 +1,3 @@
 app/etc/modules/LCB_MailGet.xml  app/etc/modules/LCB_MailGet.xml
 app/code/community/LCB/MailGet   app/code/community/LCB/MailGet
+lib/MailGet/mailget_curl.php     lib/MailGet/mailget_curl.php
