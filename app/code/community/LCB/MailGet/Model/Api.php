@@ -12,10 +12,16 @@ require_once(Mage::getBaseDir('lib') . '/MailGet/mailget_curl.php');
 class LCB_MailGet_Model_Api
 {
 
-    const API_KEY = '';
-    const API_LIST = '';
     const LOG_FILE = "mailget.log";
 
+    protected $_apiKey;
+    protected $_apiList;
+    
+    public function __construct()
+    {
+        $this->_apiKey = Mage::getStoreConfig('mailget/connection/key');
+        $this->_apiList = Mage::getStoreConfig('mailget/connection/list');
+    }
 
     /**
      * Add email to MailGet
@@ -26,7 +32,7 @@ class LCB_MailGet_Model_Api
      */
     public function addEmail($name, $email)
     {
-        $mailgetKey = self::API_KEY;
+        $mailgetKey = $this->_apiKey;
         $sendVal = 'multiple';
         $mailgetObj = new mailget_curl($mailgetKey);
         $listArr = $mailgetObj->get_list_in_json($mailgetKey);
@@ -34,7 +40,7 @@ class LCB_MailGet_Model_Api
 
         if (!empty($listArr)) {
             foreach ($listArr as $listArrRow) {
-                if ($listArrRow->list_name == self::API_LIST) {
+                if ($listArrRow->list_name ==  $this->_apiList) {
                     $listId = $listArrRow->list_id;
                     break;
                 }
